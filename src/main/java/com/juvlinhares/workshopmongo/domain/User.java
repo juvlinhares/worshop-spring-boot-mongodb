@@ -3,10 +3,16 @@ package com.juvlinhares.workshopmongo.domain;
 import java.io.Serializable;
 import java.util.Objects;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+//indica que é uma coleção
+@Document(collection = "user")
 public class User implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
+	@Id //informa a PK da coleção
 	private String id;
 	private String name;
 	private String email;
