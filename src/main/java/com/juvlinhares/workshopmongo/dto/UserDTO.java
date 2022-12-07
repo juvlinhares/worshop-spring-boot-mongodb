@@ -1,11 +1,7 @@
 package com.juvlinhares.workshopmongo.dto;
 
 import java.io.Serializable;
-import java.util.Optional;
 
-import org.springframework.data.annotation.Id;
-
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.juvlinhares.workshopmongo.domain.User;
 
 public class UserDTO implements Serializable {

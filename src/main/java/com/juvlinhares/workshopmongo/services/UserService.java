@@ -2,6 +2,7 @@ package com.juvlinhares.workshopmongo.services;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,11 +33,25 @@ public class UserService {
 	
 
 	public void delete(String id) {
-		findById(id);//tratamento de exceção, caso o id não exista
+		findById(id);
 		repo.deleteById(id);
 	}
 	
-	public User fromDTO(UserDTO objDto) {
+	public User update(User obj) {
+		//instanciar o obj usuário pra buscar ele no bd:
+		
+		User newObj = repo.findById(obj.getId()).orElseThrow(()-> new ObjectNotFoundException("object not found"));
+		updateData(newObj, obj);
+		return repo.save(newObj);
+	}
+		//método responsavel por copiar os dados de obj p newObj, vinculado ao update.
+		private void updateData(User newObj, User obj) {
+		 newObj.setName(obj.getName());
+		 newObj.setEmail(obj.getEmail());
+		
+	}
+
+		public User fromDTO(UserDTO objDto) {
 		return new User(objDto.getId(), objDto.getName(), objDto.getEmail());
 	}
 	
