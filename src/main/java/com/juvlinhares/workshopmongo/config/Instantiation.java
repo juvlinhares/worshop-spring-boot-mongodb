@@ -45,6 +45,10 @@ public class Instantiation implements CommandLineRunner {
 
 		// salvar os posts no bd
 		postRepository.saveAll(Arrays.asList(post1, post2));
+		
+		//referenciar os posts no user:
+		maria.getPosts().addAll(Arrays.asList(post1, post2));
+		userRepository.save(maria);
 
 	}
 
