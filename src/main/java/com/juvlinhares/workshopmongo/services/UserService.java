@@ -38,8 +38,8 @@ public class UserService {
 	}
 	
 	public User update(User obj) {
+
 		//instanciar o obj usuário pra buscar ele no bd:
-		
 		User newObj = repo.findById(obj.getId()).orElseThrow(()-> new ObjectNotFoundException("object not found"));
 		updateData(newObj, obj);
 		return repo.save(newObj);
