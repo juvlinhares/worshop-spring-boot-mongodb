@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Configuration;
 import com.juvlinhares.workshopmongo.domain.Post;
 import com.juvlinhares.workshopmongo.domain.User;
 import com.juvlinhares.workshopmongo.dto.AuthorDTO;
+import com.juvlinhares.workshopmongo.dto.CommentDTO;
 import com.juvlinhares.workshopmongo.repository.PostRepository;
 import com.juvlinhares.workshopmongo.repository.UserRepository;
 
@@ -43,6 +44,15 @@ public class Instantiation implements CommandLineRunner {
 		Post post1 = new Post(null, sdf.parse("21/03/2018"), "Partiu viagem", "Vou viajar para São Paulo. Abraços!", new AuthorDTO(maria));
 		Post post2 = new Post(null, sdf.parse("23/03/2018"), "Bom dia", "Acordei feliz hoje!", new AuthorDTO(maria));
 
+		//instanciar os comentários:
+		CommentDTO comment1 = new CommentDTO("Boa viagem mano!", sdf.parse("21/03/2018"), new AuthorDTO(alex));
+		CommentDTO comment2 = new CommentDTO("Aproveite!", sdf.parse("22/03/2018"), new AuthorDTO(bob));
+		CommentDTO comment3 = new CommentDTO("Tenha um ótimo dia!", sdf.parse("23/03/2018"), new AuthorDTO(alex));
+		
+		//associação de comentários com posts:
+		post1.getComments().addAll(Arrays.asList(comment1, comment2));
+		post2.getComments().addAll(Arrays.asList(comment3));
+		
 		// salvar os posts no bd
 		postRepository.saveAll(Arrays.asList(post1, post2));
 		
