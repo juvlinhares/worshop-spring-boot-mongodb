@@ -1,17 +1,13 @@
 package com.juvlinhares.workshopmongo.services;
 
-import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.juvlinhares.workshopmongo.domain.Post;
-import com.juvlinhares.workshopmongo.domain.User;
-import com.juvlinhares.workshopmongo.dto.UserDTO;
 import com.juvlinhares.workshopmongo.repository.PostRepository;
-import com.juvlinhares.workshopmongo.repository.UserRepository;
 import com.juvlinhares.workshopmongo.services.exception.ObjectNotFoundException;
 
 @Service // serviço injetavel em outras classes
@@ -29,5 +25,12 @@ public class PostService {
 	
 	public List<Post> findByTitle(String text){
 		return repo.searchTitle(text);
+	}
+	
+	public List<Post> fullSearch(String text, Date minDate, Date maxDate){
+		/*a data maxima não pode ser no início do ultimo dia, mas sim no fim,
+		 então a data maxima vai ser ela mesma + um dia*/
+		maxDate = new Date(maxDate.getTime() + 24 * 60 * 60 * 1000);//24 * 60 * 60 * 1000 => 1 dia a mais em milissegundos
+		return repo.fullSerach(text, minDate, maxDate);
 	}
 }
